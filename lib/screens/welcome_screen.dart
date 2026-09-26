@@ -13,7 +13,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Fasks"), centerTitle: true),
+      appBar: AppBar(
+        title: Text(
+          "Fasks",
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+      ),
       body: Center(
         child: Column(
           children: [
@@ -66,7 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             SizedBox(height: 50),
             FilledButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
