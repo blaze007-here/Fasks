@@ -1,4 +1,5 @@
 import 'package:fasks/screens/add_task_screen.dart';
+import 'package:fasks/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,61 +15,55 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xff061414),
+    final colors = Theme.of(context).colorScheme;
 
+    return Scaffold(
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               const SizedBox(height: 20),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "Good evening,",
                         style: TextStyle(
-                          color: Colors.teal,
+                          color: colors.primary,
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
 
-                      SizedBox(height: 3),
+                      const SizedBox(height: 3),
 
                       Text(
                         "User 👋",
                         style: TextStyle(
-                          color: Colors.teal,
+                          color: colors.primary,
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
 
-                      SizedBox(height: 7),
+                      const SizedBox(height: 7),
 
                       Text(
                         "5 tasks remaining",
-                        style: TextStyle(
-                          color: Colors.teal,
-                          fontSize: 18,
-                        ),
+                        style: TextStyle(color: colors.primary, fontSize: 18),
                       ),
                     ],
                   ),
 
-
                   CircleAvatar(
                     radius: 30,
-                    backgroundColor: Colors.teal,
+                    backgroundColor: colors.primary,
                     child: ClipOval(
                       child: Image.asset(
                         "lib/assets/images/img.png",
@@ -86,25 +81,18 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 height: 50,
                 decoration: BoxDecoration(
-                  color: const Color(0xff0B2424),
+                  color: colors.surfaceContainer,
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(
-                    color: Colors.teal,
-                  ),
+                  border: Border.all(color: colors.primary),
                 ),
-                child: const TextField(
-                  style: TextStyle(
-                    color: Colors.teal,
-                  ),
+                child: TextField(
+                  style: TextStyle(color: colors.onSurface),
                   decoration: InputDecoration(
                     hintText: "Search tasks...",
                     hintStyle: TextStyle(
-                      color: Colors.teal,
+                      color: colors.onSurface.withValues(alpha: 0.6),
                     ),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Colors.teal,
-                    ),
+                    prefixIcon: Icon(Icons.search, color: colors.primary),
                     border: InputBorder.none,
                   ),
                 ),
@@ -127,10 +115,12 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: ListView(
                   padding: const EdgeInsets.only(bottom: 80),
-                  children: const [
-                    Text("task1"),
-                    SizedBox(height: 20,),
-                    Text("task2")
+                  children: [
+                    Text("task1", style: TextStyle(color: colors.onSurface)),
+
+                    const SizedBox(height: 20),
+
+                    Text("task2", style: TextStyle(color: colors.onSurface)),
                   ],
                 ),
               ),
@@ -145,25 +135,26 @@ class _HomeScreenState extends State<HomeScreen> {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return const AddTaskScreen(
-                );
+                return AddTaskScreen();
               },
             ),
           );
         },
-        backgroundColor: Colors.teal,
-        foregroundColor: Colors.black,
+        backgroundColor: colors.primary,
+        foregroundColor: colors.onPrimary,
         shape: const CircleBorder(),
-        child: const Icon(
-          Icons.add,
-          size: 30,
-        ),
+        child: const Icon(Icons.add, size: 30),
       ),
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedBottomNav,
 
         onTap: (index) {
+          if(index==2){
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return(SettingsScreen());
+            },),);
+          }
           setState(() {
             selectedBottomNav = index;
           });
@@ -171,30 +162,37 @@ class _HomeScreenState extends State<HomeScreen> {
 
         type: BottomNavigationBarType.fixed,
 
-        backgroundColor: const Color(0xff061414),
+        backgroundColor: colors.surface,
 
-        selectedItemColor: Colors.teal,
-        unselectedItemColor: Colors.teal.shade800,
+        selectedItemColor: colors.primary,
+
+        unselectedItemColor: colors.onSurface.withValues(alpha: 0.5),
 
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.check_box_outlined),
             label: "Tasks",
           ),
+
           BottomNavigationBarItem(
             icon: Icon(Icons.check_circle_outline),
             label: "Completed",
           ),
+
           BottomNavigationBarItem(
             icon: Icon(Icons.settings_outlined),
             label: "Settings",
+
           ),
+
+
         ],
       ),
     );
   }
 
   Widget _filterButton(String title, int index) {
+    final colors = Theme.of(context).colorScheme;
     final selected = selectedFilter == index;
 
     return Expanded(
@@ -207,21 +205,19 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Container(
           height: 38,
           decoration: BoxDecoration(
-            color: selected
-                ? Colors.teal
-                : const Color(0xff0B2424),
+            color: selected ? colors.primary : colors.surfaceContainer,
+
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: Colors.teal,
-            ),
+
+            border: Border.all(color: colors.primary),
           ),
+
           child: Center(
             child: Text(
               title,
               style: TextStyle(
-                color: selected
-                    ? Colors.black
-                    : Colors.teal,
+                color: selected ? colors.onPrimary : colors.primary,
+
                 fontWeight: FontWeight.bold,
                 fontSize: 13,
               ),
