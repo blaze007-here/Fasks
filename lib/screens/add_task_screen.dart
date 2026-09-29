@@ -1,3 +1,4 @@
+import 'package:fasks/models/task.dart';
 import 'package:flutter/material.dart';
 
 class AddTaskScreen extends StatefulWidget {
@@ -8,6 +9,14 @@ class AddTaskScreen extends StatefulWidget {
 }
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
+  final titleController = TextEditingController();
+  final descriptionController = TextEditingController();
+  @override
+  void dispose(){
+    titleController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +43,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             const SizedBox(height: 10),
 
             TextField(
+              controller: titleController,
               maxLines: 2,
               decoration: InputDecoration(
                 hintText: "Enter the title for the task",
@@ -57,6 +67,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             const SizedBox(height: 10),
 
             TextField(
+              controller: descriptionController,
               maxLines: 10,
               decoration: InputDecoration(
                 hintText: "Enter the task",
@@ -115,7 +126,16 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             const SizedBox(height: 20),
 
             FilledButton(
-              onPressed: () {},
+              onPressed: () {
+                final task = Task(
+                  id: DateTime.now().toString(),
+                  title: titleController.text,
+                  description: descriptionController.text,
+                  dueDate: null,
+                  priority: "High",
+                );
+                Navigator.pop(context,task);
+              },
               style: FilledButton.styleFrom(
                 minimumSize: const Size(double.infinity, 40),
               ),
