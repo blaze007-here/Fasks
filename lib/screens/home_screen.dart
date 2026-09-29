@@ -1,4 +1,5 @@
 import 'package:fasks/screens/add_task_screen.dart';
+import 'package:fasks/screens/completed_screen.dart';
 import 'package:fasks/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -150,14 +151,25 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: selectedBottomNav,
 
         onTap: (index) {
-          if(index==2){
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return(SettingsScreen());
+          if (index == 0) {
+            Navigator.push(context, MaterialPageRoute(builder: (context){
+              return (HomeScreen());
             },),);
           }
-          setState(() {
-            selectedBottomNav = index;
-          });
+          else if (index == 1) {
+            Navigator.push(context, MaterialPageRoute(builder: (context){
+              return (CompletedScreen());
+            },),);
+          }
+          else if (index == 2) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return (SettingsScreen());
+            },),);
+
+            setState(() {
+              selectedBottomNav = index;
+            });
+          }
         },
 
         type: BottomNavigationBarType.fixed,

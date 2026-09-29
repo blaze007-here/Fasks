@@ -51,8 +51,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
             ),
             Row(
-             children: [
-                Text("Task Reminders", style: TextStyle(fontSize: 20),),
+              children: [
+                Text("Task Reminders", style: TextStyle(fontSize: 20)),
                 SizedBox(width: 155),
                 Switch.adaptive(
                   value: isSwitch,
@@ -65,7 +65,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ],
             ),
             SizedBox(height: 20),
-
+            Text(
+              "About",
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text("Version 1.0.0", style: TextStyle(fontSize: 20)),
+                SizedBox(width: 155),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.arrow_forward_ios_outlined),
+                ),
+              ],
+            ),
           ],
         ),
       ),
