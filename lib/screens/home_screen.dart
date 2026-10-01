@@ -180,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedBottomNav,
 
-        onTap: (index) {
+        onTap: (index) async {
           if (index == 0) {
             Navigator.push(
               context,
@@ -191,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           } else if (index == 1) {
-            Navigator.push(
+            final result = await Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) {
@@ -199,6 +199,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             );
+            if (result == true) {
+              setState(() {});
+            }
           } else if (index == 2) {
             Navigator.push(
               context,
